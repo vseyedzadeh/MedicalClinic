@@ -1,0 +1,50 @@
+{% extends "master.html.twig" %}
+
+
+{% block title %}Login{% endblock %}
+{% block css %} 
+    <!-- <link rel='stylesheet prefetch' href='https://www.google.com/fonts#UsePlace:use/Collection:Roboto:400,300,100,500'>
+     <link rel='stylesheet prefetch' href='https://www.google.com/fonts#UsePlace:use/Collection:Roboto+Slab:400,700,300,100'>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+{% endblock %}
+{% block content %}
+    <section id="padding" class="section-sm-padding">
+    </section>
+    <div class="container">
+        <div class="row">
+             <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+               
+                            <form id="login_form" class="form-group" action="" method="POST">
+                                <fieldset>
+                                    <legend>Log in</legend>
+                                    <div class="col-auto">
+                                        <label for="email" class="control-label">Email:</label>
+                                        <input type="text" id="user_username" class="form-control" name="email" autofocus/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="user_password" class="control-label">Password:</label>
+                                        <input type="password" id="user_password" class="input-group-sm form-control" name="password"/>
+                                    </div>
+                                    <div class="text-center pad-top-20">
+                                        <p>Have you forgotten your <a href="/passreset/request" class="link"><strong>password</strong></a>?</p>
+                                    </div>
+                                    <div class="pad-top-20 pad-btm-20">
+                                        <input type="submit" class="btn btn-form btn-block btn-lg" value="Continue">
+                                    </div>
+                                    <div class="text-center">
+                                        <p>Do you wish to register<br> for <a href="/register" class="link user-actions"><strong>a new account</strong></a>?</p>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        
+            </div>
+            
+            <div class="col-sm-2"></div>
+  </div>
+ 
+</div>
+<section id="padding" class="section-sm-padding">
+    </section>
+
+{% endblock %}

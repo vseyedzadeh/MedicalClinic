@@ -1,0 +1,65 @@
+{% extends "master.html.twig" %}
+
+{% block title %}Specialit's List{% endblock %}
+{% block matchpwd %}
+    <!--<script src="https://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
+    <script src="/assets/bootstrap/js/bootstrap.min.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+
+{% endblock %}
+{% block css %} 
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css">
+{% endblock %}
+
+{% block content %}
+    <section id="padding" class="section-sm-padding">
+    </section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">  
+                <div id="doctor">
+                    <ul class="list-group">
+
+                        {% for dr in drList %}
+                            <div class="row">
+                                <li style="order: undefined; margin-bottom: 2px;" class="list-group-item"> 
+                                    <div class="row"> 
+                                        <div class="col-sm-2" style="width:150px !important;" width="100" height="100">
+                                            <img src="{{dr.pathImage}}" width="100" height="100" alt="{{dr.firstName }}{{dr.lastName }}" class="img-thumbnail img-responsive">
+                                        </div>  
+                                        <div class="col-sm-6">
+                                            <h3>
+                                                <a class="text-primary" title="Book appointment with {{dr.firstName}}-{{dr.lastName }}" href="/doctors/{{dr.id}}/{{dr.firstName}}-{{dr.lastName }}" ><span itemprop="name">{{dr.firstName }}{{dr.lastName }} </span></a>
+                                            </h3>                        
+
+                                        </div>
+
+                                        <div class="col-sm-4 text-center">                          
+                                            <p class="text-info">
+                                                <a href="/doctors/{{dr.id}}/{{dr.firstName}}-{{dr.lastName }}" class="a btn btn-primary" name="av_times">See available times</a>
+
+                                            </p>                      
+                                        </div>             
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-sm-8">
+                                            <div>
+                                                <span itemprop="description">
+                                                    <p class="text-info text-justify"> {{dr.description}}</p>
+
+                                                </span> 
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </div>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

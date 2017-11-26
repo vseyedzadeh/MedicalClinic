@@ -1,0 +1,25 @@
+{# empty Twig template #}
+{% extends "master.html.twig" %}
+
+{% block title %}Logout{% endblock %}
+
+{% block matchpwd %}
+    <script type="text/javascript">
+        window.location.replace("http://clinic.ipd10.com/mycalendar");
+        </script>
+{% endblock %}
+
+{% block content %}
+    <section id="padding" class="section-sm-padding">
+    </section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                <p>You've been logout. </p>                
+            </div>
+        </div>
+    </div>
+
+    <section id="padding" class="section-sm-padding">
+    </section>
+{% endblock %}

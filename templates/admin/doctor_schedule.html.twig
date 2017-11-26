@@ -1,0 +1,78 @@
+{% extends "master.html.twig" %}
+
+
+{% block title %}Add Schedule{% endblock %}
+
+{% block css %} 
+
+    <link rel='stylesheet prefetch' href='https://www.google.com/fonts#UsePlace:use/Collection:Roboto:400,300,100,500'>
+    <link rel='stylesheet prefetch' href='https://www.google.com/fonts#UsePlace:use/Collection:Roboto+Slab:400,700,300,100'>
+    <link rel='stylesheet' href='/assets/css/datepicker.css'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+    <script src="/assets/js/bootstrap-datepicker.js"></script>
+
+{% endblock %}
+{% block content %}
+    <section id="padding" class="section-sm-padding">
+    </section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">  
+                <label for="month">Month: </label>
+                <input type="text" id="datepicker" name="month" class="monthPicker" />
+                <select name="selectDoctor" id="selectDoctor">
+                    {% for doctor in doctorList %}
+                        <option value="{{ doctor.id }}">{{ doctor.firstName }}&nbsp;{{ doctor.lastName }}</option> 
+                    {% endfor %}
+                </select>
+               <!-- <select name="selectDoctor" id="selectDoctor">
+                    
+                        <option value="{{ doctorList.id }}">{{ doctorList.firstName }}&nbsp;{{ doctorList.lastName }}</option> 
+                    
+                </select>-->
+                <div id="viewSchedule">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <section id="padding" class="section-sm-padding">
+    </section>
+    <script>
+        $(document).ready(function () {
+            $("#datepicker").datepicker({
+                format: "mm-yyyy",
+                startView: "year",
+                minViewMode: "months",
+                showAnim: "bounce",
+                viewMode: "months"
+
+            })
+                    .bind('propertychange change click keyup input paste', dateChangedHandler)
+                    .on("changeDate", dateChangedHandler);
+
+            function dateChangedHandler(ev) {
+                var date = (ev.date === undefined) ? $("#datepicker").val() : ev.date.getMonth() + "-" + ev.date.getFullYear();                
+                var doctorId = $("#selectDoctor").val();
+                var regex = /(0[1-9]|10|11|12)\-20[0-9]{2}/;
+                //var regex = /0([1-9])|1([1-2])\-(19\d{2})|(200\d)|(201[0-3])/;
+               // var regex =/e/;
+                if(regex.test(date)){
+                    console.log(date)
+                $("#viewSchedule").load("/ajax/myschedule/" + date + "/" + doctorId, function (response, status, xhr) {
+                    console.log("handler called, status is: " + status);
+                    if (status == "error") {
+                        $("#viewSchedule").html("<span>Please select a valid year and month to view calendar</span>");
+                    }
+                });
+            }
+            }
+
+            $('#selectDoctor').bind('propertychange change click keyup input paste', function () {
+                $("#viewSchedule").load("/ajax/myschedule/" + $("#datepicker").val() + "/" + $("#selectDoctor").val());
+            });
+        });
+
+    </script>
+
+{% endblock %}

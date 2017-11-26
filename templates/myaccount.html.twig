@@ -1,0 +1,23 @@
+{% extends "master.html.twig" %}
+
+{% block title MyAccount %}
+    {% block matchpwd %}
+        <script src="https://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
+        <script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+        
+    {% endblock %}
+    {% block css %} 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css">
+    {% endblock %}
+
+
+    {% block content %}
+        <div class="col-xs-12">
+    <div class="mha-common-header">
+      Welcome to your MyHealthAccess Account
+    </div>
+  </div>
+        
+    {% endblock %}

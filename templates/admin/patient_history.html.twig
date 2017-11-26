@@ -1,0 +1,51 @@
+{% extends "master.html.twig" %}
+
+{% block title %}Patient History{% endblock %}
+{% block css %} 
+
+    <link rel='stylesheet prefetch' href='https://www.google.com/fonts#UsePlace:use/Collection:Roboto:400,300,100,500'>
+    <link rel='stylesheet prefetch' href='https://www.google.com/fonts#UsePlace:use/Collection:Roboto+Slab:400,700,300,100'>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+
+{% endblock %}
+
+{% block content %}
+    {% if hh %}
+    <h2>Consultation note for: {{ hh[0].pfirstName }} {{ hh[0].plastName }}</h2>
+               
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Patient Message</th>
+                <th>Doctor Name</th>
+                <th>Doctor Note</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for h in hh %}
+                <tr>
+                    <td>{{ h.date }}</td>
+                    <td>{{ h.message }}</td>
+                    <td>{{ h.dfirstName }} {{ h.dlastName }}</td>
+                    <td>{{ h.note }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+            {% else %}
+                <h2>{{ p.firstName }} {{ p.lastName }} is new patient, no record is found </h2>
+                
+{% endif %}
+<button onclick="goBack()">Go Back</button>
+
+<script>
+function goBack() {
+    window.history.back();
+ }
+</script>
+
+{% endblock %}
+
+

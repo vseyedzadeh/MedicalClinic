@@ -1,0 +1,192 @@
+{% extends "master.html.twig" %}
+
+{% block title Register %}
+    {% block matchpwd %}
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+
+        <script>
+            $(document).ready(function () {
+                // respond to all events that may change the value of input
+                $('input[name=email]').bind('propertychange change click keyup input paste', function () {
+                    // AJAX request
+                    var email = $('input[name=email]').val();
+                    $('#isTaken').load('/isdoctoremailregistered/' + email);
+                });
+            });
+        </script>
+    {% endblock %}
+    {% block css %} 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css">
+    <style>
+           .msg-error{
+    color:#a94442; 
+    font-size:small;
+}
+           </style>
+    {% endblock %}
+
+
+    {% block content %}
+        <section id="padding" class="section-sm-padding">
+    </section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12"> 
+                {% if success %}
+                    <!-- Success message -->
+                    <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> You've been registered successfully!.</div>
+                {%else%}
+                    <div class="alert alert-danger" role="alert" id="errormessage">Error <i class="glyphicon glyphicon-thumbs-up"></i> Error!.</div>
+                {% endif %}
+                        <form class="well form-horizontal" method="post"  id="contact_form">
+                            <fieldset>
+
+                                <!-- Form Name -->
+                                <legend><center><h2><b>Registration Form</b></h2></center></legend><br>
+
+                                <!-- Text input-->
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">First Name</label>  
+                                    <div class="col-md-4 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                            <input  name="first_name" placeholder="First Name" class="form-control"  type="text">
+                                            <p>{{ e.fNameError }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Text input-->
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" >Last Name</label> 
+                                    <div class="col-md-4 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                            <input name="last_name" placeholder="Last Name" class="form-control"  type="text">
+                                            <p>{{ e.lNameError }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">E-Mail</label>  
+                                    <div class="col-md-4 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                                            <input name="email" placeholder="E-Mail Address" class="form-control"  type="text">
+                                            <p>{{ e.emailError }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Title</label>  
+                                    <div class="col-md-4 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                            <input name="title" placeholder="Title" class="form-control"  type="text">
+                                            <p>{{ e.titleError }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Speciality</label>  
+                                    <div class="col-md-4 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-education"></i></span>
+                                            <input name="speciality" placeholder="Speciality" class="form-control"  type="text">
+                                            <p>{{ e.specialityError }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Graduated Year</label>  
+                                    <div class="col-md-4 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                            <input name="experience" placeholder="1900" class="form-control"  type="text">
+                                            <p>{{ e.experienceError }}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Text input-->
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Description</label>  
+                                    <div class="col-md-4 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
+                                            <textarea class="form-control" rows="6" id="description" name="description"></textarea>
+
+                                            <p>{{ e.descriptionError }}</p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Text input-->
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" >Password</label> 
+                                    <div class="col-md-4 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                            <input name="user_password" placeholder="Password" class="form-control"  type="password">
+                                            <p>{{ e.pass1Error }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Text input-->
+
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" >Confirm Password</label> 
+                                    <div class="col-md-4 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                            <input name="confirm_password" placeholder="Confirm Password" class="form-control"  type="password">
+                                            <p>{{ e.pass2Error }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Text input-->
+
+                                <div class="form-group">
+                                   
+                                        <label class="col-md-4 control-label control-label" for="fileupload-input-field">Choose a file</label>
+                                        <div class="col-md-4 inputGroupContainer">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="glyphicon glyphicon-picture"></i></span>
+                                               
+                                                    <input class="file form-control" id="file-upload" type="file" name="doctorImage">
+                                                    <p>{{ e.doctorImageError }}</p>
+                                                
+                                            </div>
+                                        </div>
+                                    
+                                </div>
+
+                                        <!-- Select Basic -->
+
+                                         <!-- Button -->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label"></label>
+                                            <div class="col-md-4"><br>
+                                                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button type="submit" class="btn btn-warning" >&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSUBMIT <span class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+                                            </div>
+                                        </div>
+
+                                        </fieldset>
+                                        </form>
+                                    </div>
+                                </div><!-- /.container -->
+                                <section id="padding" class="section-sm-padding">
+                                </section>
+                            {% endblock %}
+

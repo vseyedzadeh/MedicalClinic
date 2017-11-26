@@ -1,0 +1,51 @@
+{% extends "master.html.twig" %}
+
+
+{% block title %}Sign In{% endblock %}
+{% block css %} 
+    <link rel='stylesheet prefetch' href='https://www.google.com/fonts#UsePlace:use/Collection:Roboto:400,300,100,500'>
+    <link rel='stylesheet prefetch' href='https://www.google.com/fonts#UsePlace:use/Collection:Roboto+Slab:400,700,300,100'>
+
+{% endblock %}
+{% block content %}
+<section id="padding" class="section-sm-padding">
+    </section>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+      <form id="login_form" class="dialog-form" action="" method="POST">
+        <fieldset>
+          <legend>Log in</legend>
+          <div class="form-group">
+            <label for="email" class="control-label">Email:</label>
+            <input type="text" id="user_username" class="form-control" name="email" autofocus/>
+          </div>
+          <div class="form-group">
+            <label for="user_password" class="control-label">Password:</label>
+            <input type="password" id="user_password" class="form-control" name="password"/>
+          </div>
+          <div class="text-center pad-top-20">
+            <p>Have you forgotten your <a href="/passreset/request" class="link"><strong>password</strong></a>?</p>
+          </div>
+          <div class="pad-top-20 pad-btm-20">
+            <input type="submit" class="btn btn-primary btn-block btn-lg" value="Continue">
+          </div>
+          <div class="text-center">
+                                        <p>Do you wish to register<br> for <a href="/signup" class="link user-actions"><strong>a new account</strong></a>?</p>
+                                    </div>
+          <div class="text-center">
+            
+          </div>
+        </fieldset>
+      </form>
+    </div>
+            
+            <div class="col-sm-2"></div>
+  </div>
+ 
+</div>
+<section id="padding" class="section-sm-padding">
+    </section>
+
+{% endblock %}

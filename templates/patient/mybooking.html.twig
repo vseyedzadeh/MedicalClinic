@@ -1,0 +1,156 @@
+{% extends "master.html.twig" %}
+
+{% block title MyAccount %}
+    {% block matchpwd %}
+        <script src="https://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var $modal = $('#confirmModalDelete');
+                $("#appList .btn-cancel").click(function (e) {
+                    e.preventDefault();
+                    var appId = $(this).attr('data-appid');
+                    var drName = $(this).attr('dr-name');
+                    var appDate = $(this).attr('app-date');
+                    var appTime = $(this).attr('app-time');
+                    
+                    $modal.find('input[name=appid]').val(appId);
+                    $modal.find('.modal-body h4').text('DR.' + drName + ' on ' + appDate + ' at ' + appTime );
+                    
+                    $("#confirmModalDelete").modal({show: true});
+                });
+
+            var showAlert = function (success) {
+                if (success) {
+                    $('#alertSuccess').removeClass('hidden');
+                    $('#alertError').addClass('hidden');
+                } else {
+                    $('#alertSuccess').addClass('hidden');
+                    $('#alertError').removeClass('hidden');
+                }
+                
+                setTimeout(hideAlert, 5000);
+            };
+            
+            var hideAlert = function () {
+                $('#alertSuccess').addClass('hidden');
+                $('#alertError').addClass('hidden');                
+            }
+
+            $modal.find("form").submit(function (e) {
+                var $modal = $('#confirmModalDelete');
+                e.preventDefault();
+                var appId = $('#appid').val();
+                var $form = $(this);
+                //var action = $form.attr('action');
+                $.ajax({
+                    url: '/' + appId + '/deleteappointment' ,
+                    method: 'POST',
+                    data: $form.serializeArray(),
+                    success: function (data) {
+                        var d = JSON.parse(data);
+                        if(d.success){
+                            showAlert(true);
+                        }else{
+                            showAlert(false);
+                        }
+                        $modal.modal('hide');
+                        
+                        $('#appList table tr[data-appid=' + appId + ']').remove();
+                    },
+                    error: function () {
+                        showAlert(false);
+                    }
+                });
+            });
+});
+        </script>
+    {% endblock %}
+    {% block css %} 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css">
+    {% endblock %}
+
+
+    {% block content %}
+       
+         <section id="padding" class="section-sm-padding">
+        </section>
+        <div class="container">
+            <nav class="navbar navbar-light" style="background-color: #e3f2fd;">      
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav nav-pills nav-justified">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="/patient/myaccount">My Account</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/bookappointment">Make Booking</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link active" href="/patient/mybooking">My Bookings</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+
+        <div class="col-xs-12">
+             <div id="alertSuccess" class="alert alert-success hidden">
+            <strong>Success!</strong> Your appointment is successfully canceled.
+        </div>
+        <div id="alertError" class="alert alert-danger hidden">
+            <strong>Error!</strong> There was a problem canceling appointment.
+        </div>
+            
+        </div>
+            <section id="padding" class="section-sm-padding">
+        </section>
+        <div class="col-xs-12">
+            <div id="appList" class="mha-common-header"> 
+                <table cellpadding="0" cellspacing="0" class="table table-bordered table-hover table-responsive">
+                    <tr><th>Dr.Name</th><th>Date</th><th>Time</th><th>Action</th></tr>
+                            {% for app in myapp %}
+                        <tr data-appid="{{app.id}}">
+                            <td>{{app.firstName }} {{app.lastName}}</td>
+                            <td>{{app.date}}</td>
+                            <td>{{app.startTime}}</td>
+                            <td>
+                                <button  type="button" class="btn-cancel btn btn-primary" data-appid="{{app.id}}" dr-name="{{app.firstName }} {{app.lastName}}" app-date="{{app.date}}" app-time="{{app.startTime}}">Cancel</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        <div id="confirmModalDelete" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="content1">
+                    <form method="post">
+                        <input type="hidden" id="appid" name="appid" value="" />
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Cancel Appointment</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Your Appointment is with :</p>
+                                <h4></h4>
+                                <p>Are you sure to cancel it?</p>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" >Confirm & Cancel</button>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+               
+            </div>
+        </div>
+        </div>
+                 <section id="padding" class="section-sm-padding">
+        </section>
+    {% endblock %}
